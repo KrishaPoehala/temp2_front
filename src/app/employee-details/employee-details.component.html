@@ -1,0 +1,48 @@
+
+<div *ngIf="(isAdding$ | async) === false && (isEditing$ |async) === false">
+    <div *ngIf="selectedEmployee$ | async as e">
+        <p>{{e.firstName}}</p>
+        <p>{{e.lastName}}</p>
+        <p>{{e.genre}}</p>
+    </div>
+</div>
+
+<div *ngIf="(isAdding$ | async)">
+    <form style="display: flex;">
+        <input type="text" [(ngModel)]="addModel.firstName"  [ngModelOptions]="{standalone: true}"/>
+        <input type="text" [(ngModel)]="addModel.lastName"  [ngModelOptions]="{standalone: true}"/>
+        <input type="text" [(ngModel)]="addModel.city" [ngModelOptions]="{standalone: true}"/>
+
+        <select [(ngModel)]="addModel.genre" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let genre of genres" [value]="genre">{{genre}}</option>
+        </select>
+
+        <button (click)="onAdd()">Add</button>
+    </form>
+</div>
+
+<div *ngIf="(isEditing$ | async)">
+    <form *ngIf="selectedEmployee$ | async as e" >
+        <div class="item">
+            <label for="">first name</label>
+            <input type="text"  [(ngModel)]="e.firstName"  [ngModelOptions]="{standalone: true}"/>
+        </div>
+
+        <div class="item">
+            <label for="">last name</label>
+            <input type="text" [(ngModel)]="e.lastName"  [ngModelOptions]="{standalone: true}"/>
+        </div>
+
+        <div class="item">
+            <label for="">city name</label>
+            <input type="text" [(ngModel)]="e.city" [ngModelOptions]="{standalone: true}"/>
+        </div>
+
+        <label for="">genre: </label>
+        <select [(ngModel)]="e.genre" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let genre of genres" [value]="genre">{{genre}}</option>
+        </select>
+
+        <button (click)="onEdit(e)">Edit</button>
+    </form>
+</div>

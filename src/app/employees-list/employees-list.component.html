@@ -1,0 +1,28 @@
+List of employees
+<div class="container">
+    <div>
+        <div class="container__options">
+            <div>
+                <button (click)="onAdd()">Add</button>
+            </div>
+            <div>
+                <button (click)="onEdit()">Edit</button>
+            </div>
+            <div>
+                <button (click)="onDelete()">Delete</button>
+            </div>
+        </div>
+        <div class="container_list">
+            <div *ngFor="let e of employees$ | async" class="list__item" (click)="changeSelection(e)"
+            [ngClass]="{'current':(current$ | async)?.id === e.id}">
+                {{e.firstName}}
+            </div>
+        </div>
+    </div>
+    <div>
+        Employee details
+        <div>
+            <app-employee-details></app-employee-details>
+        </div>
+    </div>
+</div>
